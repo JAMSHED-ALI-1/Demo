@@ -36,8 +36,9 @@ const App = () => {
   
   return (
     <>
-    <StatusBar barStyle={'dark-content'} backgroundColor={COLORS.Theme}/>
+    <StatusBar barStyle={'dark-content'} backgroundColor={COLORS.BLACK}/>
     <Routes/>
+    {/* <Text>hello How Are You</Text> */}
     </>
   )
 }

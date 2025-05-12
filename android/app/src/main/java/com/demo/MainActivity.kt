@@ -17,7 +17,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
    */
-  override fun getMainComponentName(): String = "Demo"
+  override fun getMainComponentName(): String = "demo"
 
   /**
    * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]

@@ -1,45 +1,71 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+
+
+
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
+import { COLORS } from '../../../Styles/colors';
+import TextinputComp from '../../../component/TextinputComp';
+import ButtonComp from '../../../component/ButtonComp';
+import TextCompo from '../../../component/TextCompo';
 import navigationString from '../../../route/navigationString';
-import HeaderComp from '../../../component/HeaderComp';
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
+  const [timeLeft, setTimeLeft] = React.useState(90);
+
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      if (timeLeft > 0) {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeLeft]);
+
+
   return (
-    <SafeAreaView style={{flex:1}}>
-      <HeaderComp title={'LOGIN'}/>
-      <View style={styles.container}>
-      <Image
-        source={require('../../../assets/Logoimg.png')} // Replace with your actual logo path
-        style={styles.logo}
-        resizeMode="contain"
-      />
-      
-      <TextInput
-        placeholder="E-mail"
-        style={styles.input}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      
-      <TextInput
-        placeholder="Password"
-        style={styles.input}
-        secureTextEntry
-      />
+    <View style={styles.container}>
+      <View style={styles.upperContainer}>
+        <Image source={require('../../../assets/ApexLogo.png')} resizeMode="contain" />
+      </View>
+      <View style={styles.lowerContainer}>
+        <TextCompo style={styles.normalText}>Phone Number</TextCompo>
+        <View style={styles.phoneInputContainer}>
+          <TouchableOpacity style={styles.countryCode}>
+            <Text style={styles.countryCodeText}>+91</Text>
+          </TouchableOpacity>
+          <View style={styles.phoneInputWrapper}>
+            <TextinputComp
+              placeholder="Enter your phone number"
+              keyboardType="numeric"
+              autoCapitalize="none"
+              autoCorrect={false}
+              maxLength={10}
+              returnKeyType="done"
+            />
+          </View>
+        </View>
 
-      <TouchableOpacity>
-        <Text style={styles.forgotPassword}>Forgot Password</Text>
-      </TouchableOpacity>
+        <TextCompo style={styles.text}>Enter the OTP Shared on</TextCompo>
+<View style={styles.bottom}>
+  <View style={{alignItems:'center',width:'100%'}}>
 
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(navigationString.HOMESCREEN)}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+<ButtonComp title="Login" />
+        <TextCompo style={{...styles.timerText,color:COLORS.RED}}>{timeLeft}</TextCompo>
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Create Account</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => setTimeLeft(90)}>
+          <TextCompo style={styles.linkText}>Didn’t get an OTP? Resend</TextCompo>
+        </TouchableOpacity>
+  </View>
+        <TouchableOpacity onPress={() => navigation.navigate(navigationString.SIGNUP)}>
+          <TextCompo style={styles.linkText}>Don’t have an account? Signup</TextCompo>
+        </TouchableOpacity>
+</View>
+       
+
+      </View>
     </View>
-    </SafeAreaView>
   );
 };
 
@@ -48,42 +74,76 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.BLACK,
+  },
+  upperContainer: {
+    flex: 0.4,
+    justifyContent: 'center',
     alignItems: 'center',
-    // justifyContent: 'center',
-    paddingHorizontal: 20,
+  },
+  lowerContainer: {
+    flex: 0.6,
     backgroundColor: '#fff',
+    padding: 20,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 30,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    marginBottom: 15,
-    fontSize: 16,
-  },
-  forgotPassword: {
-    alignSelf: 'flex-end',
-    color: '#888',
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: '#A7CF4C', // light green similar to your screenshot
-    width: '100%',
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
+  normalText: {
+    fontSize: 20,
     fontWeight: 'bold',
+    color: COLORS.BLACK,
+    marginTop: 20,
   },
+  phoneInputContainer: {
+    backgroundColor: COLORS.GRAY,
+    width: '100%',
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.GRAY,
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  countryCode: {
+    borderRightWidth: 1,
+    borderColor: COLORS.BLACK,
+    paddingRight: 10,
+    paddingVertical: 10,
+    marginRight: 10,
+  },
+  countryCodeText: {
+    fontSize: 16,
+    color: COLORS.BLACK,
+  },
+  phoneInputWrapper: {
+    flex: 1,
+  },
+  text: {
+    fontFamily: 'Montserrat',
+    color: COLORS.BLACK,
+    fontSize: 16,
+    fontWeight: '400',
+    marginTop: 25,
+  },
+  timerText: {
+    fontSize: 16,
+    color: COLORS.BLACK,
+    fontWeight: '600',
+    marginTop: 15,
+  },
+  linkText: {
+    color: COLORS.BLACK,
+    fontSize: 16,
+    fontWeight: '500',
+    marginTop: 15,
+    textDecorationLine: 'underline',
+  },
+  bottom:{
+    // flexDirection: 'row',
+    flex:1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 40,
+  }
 });

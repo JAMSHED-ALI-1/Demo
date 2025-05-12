@@ -11,7 +11,7 @@ const Routes = () => {
     <NavigationContainer >
     <Stack.Navigator>
 
-    {MainStack(Stack)}     
+    {AuthStack(Stack)}     
 
     </Stack.Navigator>
 

@@ -21,6 +21,18 @@ const Tabroutes = () => {
       tabBarShowLabel:false,
       tabBarActiveTintColor:COLORS.PINK
     }}>
+        <Tab.Screen name={navigationString.TODO} 
+      component={Screens.Todo} 
+      options={{headerShown:false,
+        tabBarIcon:({color, size, focused})=>{
+          return(
+            <Image source={require('../assets/booking.png')} style={{height:35,width:35}}
+            tintColor={focused?COLORS.PINK:'black'}/>
+          )
+        },
+   
+        
+      }} />
       <Tab.Screen name={navigationString.HOMESCREEN} 
       component={Screens.Homescreen} 
       options={{headerShown:false,
@@ -33,6 +45,7 @@ const Tabroutes = () => {
    
         
       }} />
+     
          <Tab.Screen name={navigationString.BOOKING} 
       component={Screens.Booking}
       options={{

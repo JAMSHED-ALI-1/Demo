@@ -7,4 +7,7 @@ export default {
     PROFILE:"Profile",
     MYRECURRING:'Myrecurring',
     TABROUTE:'Tabroutes',
+    TODO:"Todo",
+    SIGNUPFORM:'SignUpForm'
+    
 }
